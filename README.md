@@ -1,37 +1,39 @@
-# ☁️ AWS Serverless Inventory Management System
+# Event-Driven Inventory Management: AWS Serverless Architecture
 
-## 📌 Overview
-This project demonstrates a fully automated, **event-driven inventory system**. It leverages AWS serverless services to process data uploads, maintain a NoSQL database, and trigger real-time alerts—all without managing any underlying servers.
+## Overview
+This project implements a fully automated, **Event-Driven Inventory System** using a serverless approach. The architecture handles data ingestion, processing, and real-time alerting without the need for server provisioning or management, ensuring high scalability and cost-efficiency.
 
-## 🛠️ Architecture & Services
-* **Amazon S3**: Acts as the entry point for inventory CSV files.
-* **AWS Lambda**: Executes Python logic for data parsing and stock validation.
-* **Amazon DynamoDB**: Stores inventory records and provides a stream for real-time monitoring.
-* **Amazon SNS**: Handles automated email notifications for out-of-stock events.
+## Architecture & Service Stack
+The system utilizes a decoupled workflow to process inventory updates:
 
-## 🚀 Key Features
-* **Zero Infrastructure Management**: Fully serverless using AWS Lambda.
-* **Scalability**: Handles multiple simultaneous file uploads seamlessly.
-* **Cost-Efficient**: Pay-as-you-go model with near-zero idle costs.
+* **Data Ingestion (Amazon S3):** Serves as the landing zone for raw inventory datasets (CSV).
+* **Compute (AWS Lambda):** Triggered automatically by S3 events to execute Python-based business logic for data validation and parsing.
+* **NoSQL Storage (Amazon DynamoDB):** Stores processed inventory records with high throughput and low latency.
+* **Notification Service (Amazon SNS):** Orchestrates real-time email alerts triggered by specific stock threshold conditions.
 
-## 📸 System Screenshots
+## Key Technical Attributes
+* **Serverless Execution:** Eliminated operational overhead by utilizing AWS Lambda for on-demand compute.
+* **Event-Driven Scalability:** The system scales natively with the volume of concurrent file uploads.
+* **Automated Workflow:** Seamless integration between S3 triggers and Lambda functions for zero-touch processing.
 
-### 1. Data Source (S3 Bucket)
+## Implementation Gallery
+
+### 1. Event Source (Amazon S3)
 ![S3 Bucket](./s3.png)
-*S3 Bucket configured as the event trigger for the pipeline.*
+*S3 Bucket configured with event notifications to trigger the processing pipeline.*
 
-### 2. Processing Engine (Lambda)
+### 2. Compute Logic (AWS Lambda)
 ![Function Overview](./Function%20Overview.png)
-*Visualizing the Lambda functions and their logic.*
+*Lambda function architecture and environment configuration.*
 
-### 3. Database (DynamoDB)
+### 3. State Management (DynamoDB)
 ![DynamoDB](./DynamoDB.png)
-*Inventory items successfully stored in the NoSQL table.*
+*Finalized inventory state stored in the NoSQL table after successful processing.*
 
-### 4. Real-time Alert (SNS)
+### 4. Real-time Alerting (Amazon SNS)
 ![Email Alert](./Confirmed%20email.png)
-*Automated notification received for out-of-stock items.*
+*Automated SNS notification confirming out-of-stock events.*
 
-## 📁 Repository Structure
-* `*.csv`: Sample inventory datasets used for testing.
-* `scripts/`: Python source code for the Lambda functions.
+## Repository Structure
+* `/scripts`: Python source code for Lambda functions.
+* `/data`: Sample CSV inventory datasets used for system validation.
